@@ -7,6 +7,12 @@ ADD nginx.conf /etc/nginx/
 ARG PHP_UPSTREAM_CONTAINER=php-fpm
 ARG PHP_UPSTREAM_PORT=9000
 
+# 备份原始文件
+RUN cp /etc/apk/repositories /etc/apk/repositories.bak
+
+# 修改为国内镜像源
+RUN echo "http://mirrors.aliyun.com/alpine/v3.4/main/" > /etc/apk/repositories
+
 RUN apk update \
     && apk upgrade \
     && apk add --no-cache bash \
